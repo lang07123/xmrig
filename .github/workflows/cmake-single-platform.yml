@@ -25,7 +25,7 @@ jobs:
     # https://xmrig.com/docs/miner/build/ubuntu
     - name: Configure Libs -- hwloc uv openssl3
       run: | 
-        mkdir xmrig/build && cd xmrig/scripts
+        mkdir ./build && cd ./scripts
         ./build_deps.sh && cd ../
     
     - name: Configure CMake
