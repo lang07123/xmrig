@@ -20,26 +20,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: setup hwloc
+    - uses: actions/checkout@v4
+    # xmrig build guide
+    # https://xmrig.com/docs/miner/build/ubuntu
+    - name: Configure Libs -- hwloc uv openssl3
       run: | 
-        git clone https://github.com/open-mpi/hwloc.git
-        cd hwloc
-        ./autogen.sh
-        ./configure
-        make
-        make install
-        cd ..
+        mkdir xmrig/build && cd xmrig/scripts
+        ./build_deps.sh && cd ../
     
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DXMRIG_DEPS=scripts/deps
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -DXMRIG_DEPS=scripts/deps
 
     - name: Test
       working-directory: ${{github.workspace}}/build
