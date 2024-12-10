@@ -26,7 +26,7 @@ jobs:
     - name: Configure Libs -- hwloc uv openssl3
       run: | 
         mkdir ./build && cd ./scripts
-        ./build_deps.sh && cd ../
+        ./build_deps.sh && cd ../build
     
     - name: Configure CMake
       run: cmake .. -DXMRIG_DEPS=scripts/deps
