@@ -27,9 +27,11 @@ jobs:
       run: | 
         mkdir ./build && cd ./scripts
         ./build_deps.sh && cd ../build
+        pwd
     
     - name: Configure CMake
-      run: cmake .. -DXMRIG_DEPS=scripts/deps
+      
+      run: pwd && cmake ../ -DXMRIG_DEPS=scripts/deps
 
     - name: Build
       # Build your program with the given configuration
